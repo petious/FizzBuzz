@@ -71,11 +71,11 @@ func (app *App) SetUpRouter() *gin.Engine {
 }
 
 type GetFizzBuzzRequest struct {
-	Int1  int    `form:"int1" binding:"required"`
-	Int2  int    `form:"int2" binding:"required"`
-	Limit int    `form:"limit" binding:"required"`
-	Str1  string `form:"str1" binding:"required"`
-	Str2  string `form:"str2" binding:"required"`
+	Int1  int    `form:"int1" binding:"required,lte=1000000"`
+	Int2  int    `form:"int2" binding:"required,lte=1000000"`
+	Limit int    `form:"limit" binding:"required,lte=1000000"`
+	Str1  string `form:"str1" binding:"required,lte=250"`
+	Str2  string `form:"str2" binding:"required,lte=250"`
 } //@name GetFizzBuzzRequest
 
 type GetFizzBuzzResponse struct {
@@ -84,10 +84,10 @@ type GetFizzBuzzResponse struct {
 
 // GetFizzBuzz godoc
 // @Summary Return fizzbuzz string for request
-// @Description Return fizzbuzz string for request : Returns a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2.
+// @Description Return fizzbuzz string for request : Returns a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2.Accepts five parameters: three integers int1, int2 and limit, all < 1000000 and two strings str1 and str2, of 250 characters maximum.
 // @Tags fizzbuzz
 // @Produce json
-// @Param fizzBuzzParams query GetFizzBuzzRequest true "Accepts five parameters: three integers int1, int2 and limit, and two strings str1 and str2."
+// @Param fizzBuzzParams query GetFizzBuzzRequest true "Accepts five parameters: three integers int1, int2 and limit, all > 1000000 and two strings str1 and str2, of 250 characters maximum."
 // @Success 200 {object} GetFizzBuzzResponse
 // @Failure 400 {object} gin.H
 // @Failure 500 {object} gin.H

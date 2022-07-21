@@ -25,7 +25,7 @@ var doc = `{
     "paths": {
         "/fizzbuzz": {
             "get": {
-                "description": "Return fizzbuzz string for request : Returns a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2.",
+                "description": "Return fizzbuzz string for request : Returns a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2.Accepts five parameters: three integers int1, int2 and limit, all \u003c 1000000 and two strings str1 and str2, of 250 characters maximum.",
                 "produces": [
                     "application/json"
                 ],
@@ -35,30 +35,35 @@ var doc = `{
                 "summary": "Return fizzbuzz string for request",
                 "parameters": [
                     {
+                        "maximum": 1000000,
                         "type": "integer",
                         "name": "int1",
                         "in": "query",
                         "required": true
                     },
                     {
+                        "maximum": 1000000,
                         "type": "integer",
                         "name": "int2",
                         "in": "query",
                         "required": true
                     },
                     {
+                        "maximum": 1000000,
                         "type": "integer",
                         "name": "limit",
                         "in": "query",
                         "required": true
                     },
                     {
+                        "maxLength": 250,
                         "type": "string",
                         "name": "str1",
                         "in": "query",
                         "required": true
                     },
                     {
+                        "maxLength": 250,
                         "type": "string",
                         "name": "str2",
                         "in": "query",
