@@ -1,0 +1,166 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/fizzbuzz": {
+            "get": {
+                "description": "Return fizzbuzz string for request : Returns a list of strings with numbers from 1 to limit, where: all multiples of int1 are replaced by str1, all multiples of int2 are replaced by str2, all multiples of int1 and int2 are replaced by str1str2.",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "fizzbuzz"
+                ],
+                "summary": "Return fizzbuzz string for request",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "name": "int1",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "int2",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "name": "limit",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "str1",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "name": "str2",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/GetFizzBuzzResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/most-frequent-request": {
+            "get": {
+                "description": "Return most frequent request and its count. If multiple requests share the first place in terms of count, returns all the said request",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "statistics"
+                ],
+                "summary": "Return most frequent request and its count",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/GetMostFrequentRequestResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/gin.H"
+                        }
+                    }
+                }
+            }
+        },
+        "/swagger": {
+            "get": {
+                "description": "Swagger",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "doc"
+                ],
+                "summary": "Swagger",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "GetFizzBuzzResponse": {
+            "type": "object",
+            "properties": {
+                "result": {
+                    "type": "string"
+                }
+            }
+        },
+        "GetMostFrequentRequestResponse": {
+            "type": "object",
+            "properties": {
+                "count": {
+                    "type": "integer"
+                },
+                "mostFrequentRequests": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sqlUtils.RequestFizzBuzz"
+                    }
+                }
+            }
+        },
+        "gin.H": {
+            "type": "object",
+            "additionalProperties": {}
+        },
+        "sqlUtils.RequestFizzBuzz": {
+            "type": "object",
+            "properties": {
+                "int1": {
+                    "type": "integer"
+                },
+                "int2": {
+                    "type": "integer"
+                },
+                "limit": {
+                    "type": "integer"
+                },
+                "str1": {
+                    "type": "string"
+                },
+                "str2": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

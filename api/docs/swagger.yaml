@@ -1,0 +1,111 @@
+definitions:
+  GetFizzBuzzResponse:
+    properties:
+      result:
+        type: string
+    type: object
+  GetMostFrequentRequestResponse:
+    properties:
+      count:
+        type: integer
+      mostFrequentRequests:
+        items:
+          $ref: '#/definitions/sqlUtils.RequestFizzBuzz'
+        type: array
+    type: object
+  gin.H:
+    additionalProperties: {}
+    type: object
+  sqlUtils.RequestFizzBuzz:
+    properties:
+      int1:
+        type: integer
+      int2:
+        type: integer
+      limit:
+        type: integer
+      str1:
+        type: string
+      str2:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /fizzbuzz:
+    get:
+      description: 'Return fizzbuzz string for request : Returns a list of strings
+        with numbers from 1 to limit, where: all multiples of int1 are replaced by
+        str1, all multiples of int2 are replaced by str2, all multiples of int1 and
+        int2 are replaced by str1str2.'
+      parameters:
+      - in: query
+        name: int1
+        required: true
+        type: integer
+      - in: query
+        name: int2
+        required: true
+        type: integer
+      - in: query
+        name: limit
+        required: true
+        type: integer
+      - in: query
+        name: str1
+        required: true
+        type: string
+      - in: query
+        name: str2
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/GetFizzBuzzResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Return fizzbuzz string for request
+      tags:
+      - fizzbuzz
+  /most-frequent-request:
+    get:
+      description: Return most frequent request and its count. If multiple requests
+        share the first place in terms of count, returns all the said request
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/GetMostFrequentRequestResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Return most frequent request and its count
+      tags:
+      - statistics
+  /swagger:
+    get:
+      description: Swagger
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Swagger
+      tags:
+      - doc
+swagger: "2.0"

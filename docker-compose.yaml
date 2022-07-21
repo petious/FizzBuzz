@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+
+  db:
+    image: mysql:8.0.29
+    environment:
+      MYSQL_ROOT_PASSWORD: if5!spl?
+      MYSQL_DATABASE: fizzbuzz
+      MYSQL_USER: api
+      MYSQL_PASSWORD: Jvend2?
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./database/CreateTable.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3308:3306"
+
+
+  api:
+    image: api:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "db"
+
+volumes:
+  db-data:
